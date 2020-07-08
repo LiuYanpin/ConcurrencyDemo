@@ -17,9 +17,9 @@ public class DivTask implements Runnable {
     }
 
     public static void main(String[] args) {
-        ThreadPoolExecutor pools = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 0L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
+        ThreadPoolExecutor pools = new TraceThreadPoolExecutor(0, Integer.MAX_VALUE, 0L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
         for (int i = 0; i < 5; i++) {
-            pools.submit(new DivTask(100, i));
+            pools.execute(new DivTask(100, i));
         }
     }
 }
