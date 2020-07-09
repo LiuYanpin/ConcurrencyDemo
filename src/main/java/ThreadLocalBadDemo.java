@@ -5,7 +5,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ThreadLocalBadDemo {
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    //    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    static ThreadLocal<SimpleDateFormat> threadLocal = new ThreadLocal<SimpleDateFormat>();
+
     public static class ParseDate implements Runnable {
         int i = 0;
 
@@ -16,7 +18,10 @@ public class ThreadLocalBadDemo {
         @Override
         public void run() {
             try {
-                Date t = sdf.parse("2015-05-29 19:29:" + i % 60);
+                if (threadLocal.get() == null) {
+                    threadLocal.set(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+                }
+                Date t = threadLocal.get().parse("2015-05-29 19:29:" + i % 60);
                 System.out.println(i + ":" + t);
             } catch (ParseException e) {
                 e.printStackTrace();
