@@ -1,3 +1,5 @@
+package redspider;
+
 public class ObjectLock {
     private static Object lock = new Object();
 

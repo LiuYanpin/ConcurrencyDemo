@@ -1,3 +1,5 @@
+package redspider;
+
 public class RunnableDemo {
     public static void main(String[] args) {
         Thread a = new Thread(new Runnable() {
